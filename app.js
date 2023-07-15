@@ -8,7 +8,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, 'Signup.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.post('/', function(req, res) {
@@ -32,10 +32,11 @@ app.post('/', function(req, res) {
     const url = 'https://us21.api.mailchimp.com/3.0/lists/695743e77b';
     const options = {
         method: 'POST',
-        auth: 'ayush:1827a96064eaed6e49e7ab38b244f08c-us21'
+        auth: 'ayush:b15c18fe5201f5a9e0aaadbdba67721a-us21'
     };
 
     const request = https.request(url, options, function(response) {
+        console.log(response.statusMessage);
         if (response.statusCode === 200) {
             res.sendFile(path.join(__dirname, 'success.html'));
         } else {
@@ -46,7 +47,9 @@ app.post('/', function(req, res) {
     request.write(jsonData);
     request.end();
 });
-
+app.post('/success', function(req, res) {
+    res.redirect('/');
+});
 app.post('/failure', function(req, res) {
     res.redirect('/');
 });
@@ -54,3 +57,8 @@ app.post('/failure', function(req, res) {
 app.listen(4000, function() {
     console.log('Server is running on port 4000');
 });
+
+
+//
+//
+//b15c18fe5201f5a9e0aaadbdba67721a-us21
